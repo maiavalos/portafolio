@@ -3,29 +3,15 @@ import type { Variants } from 'framer-motion';
 import { useEffect } from 'react';
 import { ArrowDownCircleIcon, CodeBracketIcon, CursorArrowRaysIcon, SparklesIcon } from '@heroicons/react/24/solid';
 
-// Elementos de tarot con animaciones
-const tarotElements = [
-  { id: 1, icon: '⭐', name: 'La Estrella', size: 'text-4xl', top: '15%', left: '10%', delay: 0.5 },
-  { id: 2, icon: '🌙', name: 'La Luna', size: 'text-5xl', top: '80%', left: '85%', delay: 1 },
-  { id: 3, icon: '🔮', name: 'El Mago', size: 'text-6xl', top: '20%', left: '85%', delay: 1.5 },
-  { id: 4, icon: '✨', name: 'Brillo', size: 'text-3xl', top: '70%', left: '15%', delay: 0.8 },
-  { id: 5, icon: '🌠', name: 'Deseo', size: 'text-2xl', top: '30%', left: '20%', delay: 1.2 }
+// Tech stack icons
+const techIcons = [
+  { id: 1, icon: '💻', name: 'Frontend', size: 'text-3xl', delay: 0.3 },
+  { id: 2, icon: '⚛️', name: 'React', size: 'text-4xl', delay: 0.6 },
+  { id: 3, icon: '�', name: 'Mobile', size: 'text-3xl', delay: 0.9 },
+  { id: 4, icon: '🎨', name: 'UI/UX', size: 'text-3xl', delay: 1.2 },
+  { id: 5, icon: '🔧', name: 'Tools', size: 'text-3xl', delay: 1.5 }
 ];
 
-// Animación de flotar
-const floatAnimation = (delay: number): Variants => ({
-  initial: { y: 0 },
-  animate: {
-    y: [0, -15, 0],
-    transition: {
-      duration: 4 + Math.random() * 3,
-      repeat: Infinity,
-      repeatType: 'reverse' as const,
-      delay,
-      ease: 'easeInOut'
-    }
-  }
-});
 
 
 export const Hero = () => {
@@ -77,97 +63,58 @@ export const Hero = () => {
   return (
     <section 
       id="inicio" 
-      className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20 text-white"
-      style={{
-        background: 'linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%)',
-      }}
+      className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20 text-white bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900"
     >
-      {/* Fondo con textura de pergamino */}
-      <div 
-        className="absolute inset-0 opacity-10" 
-        style={{
-          backgroundImage: "url('https://www.transparenttextures.com/patterns/old-map.png')",
-          backgroundSize: 'cover'
-        }} 
-      />
+      {/* Subtle grid pattern */}
+      <div className="absolute inset-0 bg-grid-white/[0.02] bg-[length:40px_40px]" />
       
-      {/* Efecto de velas iluminando */}
+      {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden">
-        {[...Array(5)].map((_, i) => (
-          <motion.div
-            key={`light-${i}`}
-            className="absolute rounded-full"
-            initial={{ opacity: 0 }}
-            animate={{
-              opacity: [0.3, 0.6, 0.3],
-              scale: [1, 1.2, 1],
-            }}
-            transition={{
-              duration: 3 + Math.random() * 4,
-              repeat: Infinity,
-              repeatType: 'reverse',
-              delay: Math.random() * 2
-            }}
-            style={{
-              width: '300px',
-              height: '300px',
-              background: 'radial-gradient(circle, rgba(251, 191, 36, 0.1) 0%, rgba(251, 191, 36, 0) 70%)',
-              top: `${10 + Math.random() * 80}%`,
-              left: `${10 + Math.random() * 80}%`,
-            }}
-          />
-        ))}
-      </div>
-      {/* Elementos de tarot flotantes */}
-      <div className="absolute inset-0 -z-10 overflow-hidden">
-        {tarotElements.map((element) => (
-          <motion.div
-            key={element.id}
-            className={`absolute ${element.size} select-none pointer-events-none`}
-            initial="initial"
-            animate="animate"
-            variants={floatAnimation(element.delay)}
-            style={{
-              top: element.top,
-              left: element.left,
-              filter: 'drop-shadow(0 0 8px rgba(251, 191, 36, 0.3))',
-            }}
-            title={element.name}
-          >
-            {element.icon}
-          </motion.div>
-        ))}
-
-        {/* Elementos de fondo animados */}
-        {[...Array(15)].map((_, i) => {
-          const size = Math.random() * 8 + 4;
-          return (
+        {/* Floating tech icons */}
+        <div className="absolute inset-0">
+          {techIcons.map((item, i) => (
             <motion.div
-              key={`star-${i}`}
-              className="absolute rounded-full bg-primary-500/20"
-              initial={{ opacity: 0, scale: 0.5 }}
+              key={item.id}
+              className={`absolute ${item.size} opacity-20`}
+              initial={{
+                x: Math.random() * 100,
+                y: Math.random() * 100,
+                rotate: Math.random() * 360
+              }}
               animate={{
-                opacity: [0, 0.8, 0],
-                scale: [0.5, 1, 0.5],
-                x: Math.random() * 100 - 50,
-                y: Math.random() * 100 - 50,
+                x: [
+                  Math.random() * 100,
+                  Math.random() * 100,
+                  Math.random() * 100
+                ],
+                y: [
+                  Math.random() * 100,
+                  Math.random() * 100,
+                  Math.random() * 100
+                ],
+                rotate: [0, 90, 180, 270, 360],
+                opacity: [0.1, 0.2, 0.1],
               }}
               transition={{
-                duration: 5 + Math.random() * 10,
+                duration: 20 + Math.random() * 20,
                 repeat: Infinity,
                 repeatType: 'reverse',
-                delay: Math.random() * 5,
+                ease: 'linear',
+                delay: item.delay
               }}
               style={{
-                width: `${size}px`,
-                height: `${size}px`,
-                top: `${Math.random() * 100}%`,
-                left: `${Math.random() * 100}%`,
-                boxShadow: `0 0 ${size * 2}px ${size * 0.5}px rgba(139, 92, 246, 0.3)`,
+                left: `${10 + (i * 15) % 80}%`,
+                top: `${10 + (i * 20) % 80}%`,
               }}
-            />
-          );
-        })}
+            >
+              {item.icon}
+            </motion.div>
+          ))}
+        </div>
+        
+        {/* Gradient overlays */}
+        <div className="absolute top-0 left-0 w-full h-1/3 bg-gradient-to-b from-blue-500/10 to-transparent" />
+        <div className="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-purple-500/10 to-transparent" />
       </div>
 
       <div className="container relative z-10 px-6">
@@ -175,22 +122,22 @@ export const Hero = () => {
           variants={container}
           initial="hidden"
           animate="visible"
-          className="max-w-4xl mx-auto"
+          className="max-w-4xl mx-auto text-center"
         >
           <motion.div 
             variants={item} 
-            className="mb-2"
+            className="mb-4"
           >
-            <span className="text-primary-400 font-mono text-sm md:text-base tracking-widest">
-              <SparklesIcon className="inline-block w-4 h-4 mr-2 mb-1" />
-              Hola, mi nombre es
+            <span className="inline-flex items-center px-4 py-2 rounded-full bg-blue-500/10 text-blue-300 text-sm font-mono tracking-widest border border-blue-500/20">
+              <SparklesIcon className="w-4 h-4 mr-2" />
+              Hola, soy
             </span>
           </motion.div>
 
-          <motion.div className="relative">
+          <motion.div className="relative inline-block">
             <motion.h1 
               variants={item}
-              className="text-5xl md:text-7xl font-display font-bold text-white mb-4 relative z-10"
+              className="text-5xl md:text-7xl font-bold text-white mb-6 relative z-10 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3 }}
@@ -198,7 +145,7 @@ export const Hero = () => {
               Maia Avalos
             </motion.h1>
             <motion.div 
-              className="absolute -inset-4 bg-gradient-to-r from-primary-500/10 to-purple-500/10 rounded-xl -z-10"
+              className="absolute -inset-4 bg-gradient-to-r from-blue-500/5 to-purple-500/5 rounded-2xl -z-10 blur-xl"
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.5 }}
@@ -207,7 +154,7 @@ export const Hero = () => {
 
           <motion.div 
             variants={item}
-            className="relative inline-block mb-8"
+            className="relative inline-block mb-10"
           >
             <motion.h2 
               className="text-2xl md:text-4xl font-medium text-gray-200"
@@ -215,17 +162,15 @@ export const Hero = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.7 }}
             >
-              <motion.span 
-                className="inline-block"
-                whileHover={{ rotate: [0, -10, 10, 0] }}
-                transition={{ duration: 0.5 }}
-              >
-                <CodeBracketIcon className="inline w-6 h-6 mr-2 text-primary-500" />
-              </motion.span>
-              Desarrolladora de Software
+              <span className="relative inline-flex items-center">
+                <CodeBracketIcon className="w-6 h-6 mr-3 text-blue-400" />
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-300 to-purple-300">
+                  Desarrolladora Full Stack
+                </span>
+              </span>
             </motion.h2>
             <motion.div 
-              className="absolute -bottom-2 left-0 w-full h-1 bg-primary-500/30"
+              className="absolute -bottom-3 left-1/2 w-3/4 h-0.5 bg-gradient-to-r from-transparent via-blue-500 to-transparent"
               initial={{ scaleX: 0 }}
               animate={{ scaleX: 1 }}
               transition={{ duration: 1, delay: 1 }}
@@ -234,9 +179,10 @@ export const Hero = () => {
 
           <motion.p 
             variants={item}
-            className="text-lg md:text-xl text-gray-300 mb-10 max-w-2xl mx-auto leading-relaxed"
+            className="text-lg md:text-xl text-gray-300 mb-12 max-w-2xl mx-auto leading-relaxed"
           >
-            Transformo ideas en experiencias digitales mágicas con código limpio y diseño cautivador.
+            Creo experiencias digitales excepcionales con un enfoque en código limpio, 
+            diseño intuitivo y soluciones innovadoras que generan impacto real.
           </motion.p>
 
           <motion.div 
@@ -244,10 +190,18 @@ export const Hero = () => {
             className="flex flex-wrap justify-center gap-4 md:gap-6"
           >
             <motion.a
-              whileHover={{ scale: 1.05 }}
+              whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.98 }}
-              href="#proyectos"
-              className="px-6 py-3 bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-500 hover:to-primary-600 text-white rounded-lg font-medium transition-all duration-300 flex items-center gap-2 group shadow-lg shadow-primary-900/30 hover:shadow-primary-900/50"
+              onClick={(e) => {
+                e.preventDefault();
+                const element = document.getElementById('proyectos');
+                if (element) {
+                  const yOffset = -80; // Ajusta este valor según la altura de tu Navbar
+                  const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+                  window.scrollTo({ top: y, behavior: 'smooth' });
+                }
+              }}
+              className="px-8 py-3.5 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-500 hover:to-blue-600 text-white rounded-xl font-medium transition-all duration-300 flex items-center gap-3 group shadow-lg shadow-blue-900/30 hover:shadow-blue-900/40"
             >
               <CursorArrowRaysIcon className="w-5 h-5" />
               Ver mis proyectos
@@ -255,17 +209,17 @@ export const Hero = () => {
             </motion.a>
             
             <motion.a
-              whileHover={{ scale: 1.05 }}
+              whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.98 }}
               href="#contacto"
-              className="px-6 py-3 bg-dark-700/80 hover:bg-dark-600/90 text-white rounded-lg font-medium transition-all duration-300 flex items-center gap-2 border border-dark-600 hover:border-primary-500/50 shadow-lg shadow-dark-900/30 hover:shadow-primary-900/20"
+              className="px-8 py-3.5 bg-white/5 hover:bg-white/10 text-white rounded-xl font-medium transition-all duration-300 flex items-center gap-3 border border-white/10 hover:border-white/20 shadow-lg shadow-purple-900/10 hover:shadow-purple-900/20 backdrop-blur-sm"
             >
               <span className="relative">
                 <span className="absolute -left-1 -top-1 flex h-3 w-3">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-3 w-3 bg-primary-500"></span>
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-3 w-3 bg-blue-500"></span>
                 </span>
-                ✉️
+                💬
               </span>
               Contáctame
             </motion.a>
@@ -275,36 +229,46 @@ export const Hero = () => {
             variants={item}
             className="mt-16"
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-black/30 backdrop-blur-sm rounded-full border border-gray-700 text-sm text-gray-300">
-              <span className="relative flex h-3 w-3">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-3 w-3 bg-primary-500"></span>
+            <div className="inline-flex items-center gap-3 px-5 py-2.5 bg-white/5 backdrop-blur-sm rounded-full border border-white/10 text-sm text-gray-300">
+              <span className="relative flex h-2.5 w-2.5">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-blue-500"></span>
               </span>
-              Actualmente trabajando en algo increíble...
+              <span className="font-mono text-xs tracking-wider">DISPONIBLE PARA NUEVOS PROYECTOS</span>
             </div>
           </motion.div>
         </motion.div>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.5 }}
+          animate={{ 
+            opacity: [0, 1, 1, 0],
+            y: [20, 0, 0, 20]
+          }}
+          transition={{ 
+            duration: 3,
+            repeat: Infinity,
+            repeatDelay: 1,
+            ease: "easeInOut"
+          }}
           className="absolute bottom-10 left-1/2 -translate-x-1/2 text-center"
         >
           <a
             href="#sobre-mi"
-            className="inline-flex flex-col items-center text-gray-400 hover:text-primary-400 transition-colors"
+            className="inline-flex flex-col items-center group"
           >
-            <span className="text-sm mb-2">Desplázate</span>
-            <div className="w-8 h-12 border-2 border-gray-700 rounded-full flex justify-center p-1">
+            <span className="text-xs text-gray-400 mb-3 font-mono tracking-wider group-hover:text-blue-300 transition-colors">
+              DESPLAZA PARA VER MÁS
+            </span>
+            <div className="w-10 h-16 border-2 border-white/20 rounded-full flex justify-center p-1 group-hover:border-blue-400/50 transition-colors">
               <motion.div
-                animate={{ y: [0, 10, 0] }}
+                animate={{ y: [0, 12, 0] }}
                 transition={{
-                  duration: 1.5,
+                  duration: 1.8,
                   repeat: Infinity,
                   ease: "easeInOut",
                 }}
-                className="w-1 h-3 bg-primary-500 rounded-full"
+                className="w-1 h-4 bg-gradient-to-b from-blue-400 to-purple-400 rounded-full"
               />
             </div>
           </a>
