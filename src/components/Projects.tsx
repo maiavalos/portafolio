@@ -1,6 +1,7 @@
 import type { Variants } from 'framer-motion';
 import { motion } from 'framer-motion';
 import { CodeBracketIcon, ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline';
+import { useLanguage } from '../contexts/LanguageContext';
 
 type Project = {
   id: number;
@@ -43,6 +44,7 @@ const projects: Project[] = [
 ];
 
 const Projects = () => {
+  const { t } = useLanguage();
   const container: Variants = {
     hidden: { opacity: 0 },
     show: {
@@ -68,7 +70,7 @@ const Projects = () => {
   };
 
   return (
-    <section id="proyectos" className="pt-28 pb-20 -mt-20 bg-slate-900">
+    <section id="projects" className="pt-28 pb-20 -mt-20 bg-slate-900">
       <div className="container mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -78,10 +80,10 @@ const Projects = () => {
           className="text-center mb-16"
         >
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            Mis <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">Proyectos</span>
+            {t('projects.title')}
           </h2>
           <p className="text-lg text-gray-400 max-w-2xl mx-auto">
-            Algunos de los proyectos en los que he trabajado recientemente.
+            {t('projects.subtitle')}
           </p>
         </motion.div>
 
@@ -129,7 +131,7 @@ const Projects = () => {
                     rel="noopener noreferrer"
                   >
                     <ArrowTopRightOnSquareIcon className="w-4 h-4 mr-1" />
-                    Ver Demo
+                    {t('projects.viewDemo')}
                   </a>
                   <a 
                     href={project.codeUrl}
@@ -138,7 +140,7 @@ const Projects = () => {
                     rel="noopener noreferrer"
                   >
                     <CodeBracketIcon className="w-4 h-4 mr-1" />
-                    Código
+                    {t('projects.viewCode')}
                   </a>
                 </div>
               </div>

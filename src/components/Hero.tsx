@@ -1,18 +1,26 @@
 import { motion, useAnimation } from 'framer-motion';
 import type { Variants } from 'framer-motion';
 import { useEffect } from 'react';
-import { ArrowDownCircleIcon, CodeBracketIcon, CursorArrowRaysIcon, SparklesIcon } from '@heroicons/react/24/solid';
+import { ArrowDownCircleIcon, CursorArrowRaysIcon, SparklesIcon } from '@heroicons/react/24/solid';
 
 // Tech stack icons
 const techIcons = [
   { id: 1, icon: '💻', name: 'Frontend', size: 'text-3xl', delay: 0.3 },
   { id: 2, icon: '⚛️', name: 'React', size: 'text-4xl', delay: 0.6 },
-  { id: 3, icon: '�', name: 'Mobile', size: 'text-3xl', delay: 0.9 },
+  { id: 3, icon: '📱', name: 'Mobile', size: 'text-3xl', delay: 0.9 },
   { id: 4, icon: '🎨', name: 'UI/UX', size: 'text-3xl', delay: 1.2 },
   { id: 5, icon: '🔧', name: 'Tools', size: 'text-3xl', delay: 1.5 }
 ];
 
-
+// Tarot and magic icons
+const magicIcons = [
+  { id: 1, icon: '🃏', name: 'Tarot', size: 'text-2xl', delay: 0.2 },
+  { id: 2, icon: '🔮', name: 'Crystal', size: 'text-3xl', delay: 0.4 },
+  { id: 3, icon: '✨', name: 'Magic', size: 'text-2xl', delay: 0.6 },
+  { id: 4, icon: '🌙', name: 'Moon', size: 'text-3xl', delay: 0.8 },
+  { id: 5, icon: '⭐', name: 'Star', size: 'text-2xl', delay: 1.0 },
+  { id: 6, icon: '🔥', name: 'Fire', size: 'text-2xl', delay: 1.2 }
+];
 
 export const Hero = () => {
   const controls = useAnimation();
@@ -62,11 +70,11 @@ export const Hero = () => {
 
   return (
     <section 
-      id="inicio" 
-      className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20 text-white bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900"
+      id="home" 
+      className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20 text-gray-900 dark:text-white bg-gradient-to-br from-white via-gray-50 to-gray-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 transition-colors duration-200"
     >
       {/* Subtle grid pattern */}
-      <div className="absolute inset-0 bg-grid-white/[0.02] bg-[length:40px_40px]" />
+      <div className="absolute inset-0 bg-grid-gray-300/[0.2] dark:bg-grid-white/[0.02] bg-[length:40px_40px]" />
       
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden">
@@ -111,6 +119,50 @@ export const Hero = () => {
             </motion.div>
           ))}
         </div>
+
+        {/* Floating magic icons */}
+        <div className="absolute inset-0">
+          {magicIcons.map((item, i) => (
+            <motion.div
+              key={`magic-${item.id}`}
+              className={`absolute ${item.size} opacity-30`}
+              initial={{
+                x: Math.random() * 100,
+                y: Math.random() * 100,
+                rotate: 0,
+                scale: 0
+              }}
+              animate={{
+                x: [
+                  Math.random() * 100,
+                  Math.random() * 100,
+                  Math.random() * 100
+                ],
+                y: [
+                  Math.random() * 100,
+                  Math.random() * 100,
+                  Math.random() * 100
+                ],
+                rotate: [0, 180, 360],
+                scale: [0, 1, 0.8, 1],
+                opacity: [0, 0.3, 0.5, 0.3],
+              }}
+              transition={{
+                duration: 15 + Math.random() * 15,
+                repeat: Infinity,
+                repeatType: 'reverse',
+                ease: 'easeInOut',
+                delay: item.delay
+              }}
+              style={{
+                left: `${5 + (i * 18) % 90}%`,
+                top: `${5 + (i * 15) % 90}%`,
+              }}
+            >
+              {item.icon}
+            </motion.div>
+          ))}
+        </div>
         
         {/* Gradient overlays */}
         <div className="absolute top-0 left-0 w-full h-1/3 bg-gradient-to-b from-blue-500/10 to-transparent" />
@@ -128,16 +180,16 @@ export const Hero = () => {
             variants={item} 
             className="mb-4"
           >
-            <span className="inline-flex items-center px-4 py-2 rounded-full bg-blue-500/10 text-blue-300 text-sm font-mono tracking-widest border border-blue-500/20">
+            <span className="inline-flex items-center px-4 py-2 rounded-full bg-purple-500/10 dark:bg-purple-500/10 text-purple-600 dark:text-purple-300 text-sm font-mono tracking-widest border border-purple-500/20 dark:border-purple-500/20">
               <SparklesIcon className="w-4 h-4 mr-2" />
-              Hola, soy
+              🃏 Desarrolladora Mágica
             </span>
           </motion.div>
 
           <motion.div className="relative inline-block">
             <motion.h1 
               variants={item}
-              className="text-5xl md:text-7xl font-bold text-white mb-6 relative z-10 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400"
+              className="text-5xl md:text-7xl font-bold mb-6 relative z-10 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3 }}
@@ -163,9 +215,9 @@ export const Hero = () => {
               transition={{ duration: 0.5, delay: 0.7 }}
             >
               <span className="relative inline-flex items-center">
-                <CodeBracketIcon className="w-6 h-6 mr-3 text-blue-400" />
-                <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-300 to-purple-300">
-                  Desarrolladora Full Stack
+                <span className="mr-3 text-2xl">🔮</span>
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-300 to-pink-300">
+                  Desarrolladora Full Stack & Tarot Reader
                 </span>
               </span>
             </motion.h2>
@@ -179,10 +231,11 @@ export const Hero = () => {
 
           <motion.p 
             variants={item}
-            className="text-lg md:text-xl text-gray-300 mb-12 max-w-2xl mx-auto leading-relaxed"
+            className="text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-12 max-w-2xl mx-auto leading-relaxed"
           >
-            Creo experiencias digitales excepcionales con un enfoque en código limpio, 
-            diseño intuitivo y soluciones innovadoras que generan impacto real.
+            Combino la magia del código con el arte del tarot para crear experiencias digitales 
+            excepcionales. Cada línea de código es un hechizo, cada proyecto una carta del destino 
+            que transforma ideas en realidad digital con un toque místico.
           </motion.p>
 
           <motion.div 
@@ -194,14 +247,14 @@ export const Hero = () => {
               whileTap={{ scale: 0.98 }}
               onClick={(e) => {
                 e.preventDefault();
-                const element = document.getElementById('proyectos');
+                const element = document.getElementById('projects');
                 if (element) {
                   const yOffset = -80; // Ajusta este valor según la altura de tu Navbar
                   const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
                   window.scrollTo({ top: y, behavior: 'smooth' });
                 }
               }}
-              className="px-8 py-3.5 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-500 hover:to-blue-600 text-white rounded-xl font-medium transition-all duration-300 flex items-center gap-3 group shadow-lg shadow-blue-900/30 hover:shadow-blue-900/40"
+              className="px-8 py-3.5 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white rounded-xl font-medium transition-all duration-300 flex items-center gap-3 group shadow-lg shadow-purple-500/20 dark:shadow-purple-900/30 hover:shadow-purple-600/30 dark:hover:shadow-purple-900/40"
             >
               <CursorArrowRaysIcon className="w-5 h-5" />
               Ver mis proyectos
@@ -211,17 +264,11 @@ export const Hero = () => {
             <motion.a
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.98 }}
-              href="#contacto"
+              href="#contact"
               className="px-8 py-3.5 bg-white/5 hover:bg-white/10 text-white rounded-xl font-medium transition-all duration-300 flex items-center gap-3 border border-white/10 hover:border-white/20 shadow-lg shadow-purple-900/10 hover:shadow-purple-900/20 backdrop-blur-sm"
             >
-              <span className="relative">
-                <span className="absolute -left-1 -top-1 flex h-3 w-3">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-3 w-3 bg-blue-500"></span>
-                </span>
-                💬
-              </span>
-              Contáctame
+              <span className="mr-3 text-2xl">🔮</span>
+              Consulta Mágica
             </motion.a>
           </motion.div>
 
@@ -229,49 +276,14 @@ export const Hero = () => {
             variants={item}
             className="mt-16"
           >
-            <div className="inline-flex items-center gap-3 px-5 py-2.5 bg-white/5 backdrop-blur-sm rounded-full border border-white/10 text-sm text-gray-300">
+            <div className="inline-flex items-center gap-3 px-5 py-2.5 bg-purple-500/10 backdrop-blur-sm rounded-full border border-purple-500/20 text-sm text-purple-300">
               <span className="relative flex h-2.5 w-2.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-blue-500"></span>
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-purple-500"></span>
               </span>
-              <span className="font-mono text-xs tracking-wider">DISPONIBLE PARA NUEVOS PROYECTOS</span>
+              <span className="font-mono text-xs tracking-wider">🔮 DISPONIBLE PARA CONSULTAS MÁGICAS</span>
             </div>
           </motion.div>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ 
-            opacity: [0, 1, 1, 0],
-            y: [20, 0, 0, 20]
-          }}
-          transition={{ 
-            duration: 3,
-            repeat: Infinity,
-            repeatDelay: 1,
-            ease: "easeInOut"
-          }}
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 text-center"
-        >
-          <a
-            href="#sobre-mi"
-            className="inline-flex flex-col items-center group"
-          >
-            <span className="text-xs text-gray-400 mb-3 font-mono tracking-wider group-hover:text-blue-300 transition-colors">
-              DESPLAZA PARA VER MÁS
-            </span>
-            <div className="w-10 h-16 border-2 border-white/20 rounded-full flex justify-center p-1 group-hover:border-blue-400/50 transition-colors">
-              <motion.div
-                animate={{ y: [0, 12, 0] }}
-                transition={{
-                  duration: 1.8,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-                className="w-1 h-4 bg-gradient-to-b from-blue-400 to-purple-400 rounded-full"
-              />
-            </div>
-          </a>
         </motion.div>
       </div>
     </section>
